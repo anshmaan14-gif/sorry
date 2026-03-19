@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Quest ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+#game {
+  margin-top: 80px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.yes { background: #4CAF50; }
+.no { background: #ff4d4d; position: absolute; }
+</style>
+</head>
+
+<body>
+
+<div id="game">
+  <h1>Love Quest for ANSHU ❤️</h1>
+  <button onclick="startGame()">Start</button>
+</div>
+
+<script>
+
+// START
+function startGame(){
+  document.getElementById("game").innerHTML = `
+    <h2>Do you forgive me ANSHU? 🥺</h2>
+    <button class="yes" onclick="forgiveYes()">Yes ❤️</button>
+    <button class="no" id="noBtn">No 😈</button>
+  `;
+  moveNo("noBtn");
+}
+
+// MOVE NO
+function moveNo(id){
+  const btn = document.getElementById(id);
+  btn.onmouseover = () => {
+    btn.style.left = Math.random()*80+"%";
+    btn.style.top = Math.random()*80+"%";
+  };
+}
+
+// YES 1
+function forgiveYes(){
+  document.getElementById("game").innerHTML = `<h2>🎉 I knew it ❤️</h2>`;
+  setTimeout(loveQuestion,2000);
+}
+
+// QUESTION 2
+function loveQuestion(){
+  document.getElementById("game").innerHTML = `
+    <h2>You love me na ANSHU? 😚</h2>
+    <button class="yes" onclick="startMiniGame()">Yes 💕</button>
+    <button class="no" id="noBtn2">No 😏</button>
+  `;
+  moveNo("noBtn2");
+}
+
+// MYSTERY SELECTOR
+function startMiniGame(){
+  document.getElementById("game").innerHTML = `
+    <h2>Pick something... 😏</h2>
+    <button onclick="game1()">???</button>
+    <button onclick="game2()">Try this 👀</button>
+    <button onclick="game3()">Don't click 😈</button>
+    <button onclick="game4()">Secret 💌</button>
+    <button onclick="game5()">Mystery 🎯</button>
+    <button onclick="game6()">Last one 🤭</button>
+  `;
+}
+
+// GAME 1: TAP HEARTS
+function game1(){
+  let count=0;
+  document.getElementById("game").innerHTML=`<h2>Tap 3 hearts 💖</h2>`;
+
+  spawn();
+
+  function spawn(){
+    const heart=document.createElement("div");
+    heart.innerText="💖";
+    heart.style.position="absolute";
+    heart.style.left=Math.random()*80+"%";
+    heart.style.top=Math.random()*80+"%";
+    heart.style.fontSize="30px";
+    heart.style.cursor="pointer";
+
+    document.body.appendChild(heart);
+
+    heart.onclick=()=>{
+      heart.remove();
+      count++;
+      if(count<3) spawn();
+      else win();
+    };
+  }
+}
+
+// GAME 2: GIFT
+function game2(){
+  document.getElementById("game").innerHTML=`
+    <h2>Pick a gift 🎁</h2>
+    <button onclick="win('Free hug 🤗')">🎁</button>
+    <button onclick="win('1 date 😄')">🎁</button>
+    <button onclick="win('Unlimited love 💖')">🎁</button>
+  `;
+}
+
+// GAME 3: FAKE CHOICE
+function game3(){
+  document.getElementById("game").innerHTML=`
+    <h2>Who is cutest? 😏</h2>
+    <button onclick="win()">You 😍</button>
+    <button onclick="win()">Also you 😘</button>
+  `;
+}
+
+// GAME 4: PUZZLE
+function game4(){
+  document.getElementById("game").innerHTML=`
+    <h2>Fix this 💌</h2>
+    <h3 onclick="win()">I O Y U L V E O</h3>
+    <p>(tap it 😉)</p>
+  `;
+}
+
+// GAME 5: CATCH HEART
+function game5(){
+  document.getElementById("game").innerHTML=`<h2>Catch it 💖</h2>`;
+
+  const heart=document.createElement("div");
+  heart.innerText="💖";
+  heart.style.position="absolute";
+  heart.style.left="40%";
+  heart.style.top="40%";
+  heart.style.fontSize="40px";
+  heart.style.cursor="pointer";
+
+  document.body.appendChild(heart);
+
+  let move=setInterval(()=>{
+    heart.style.left=Math.random()*80+"%";
+    heart.style.top=Math.random()*80+"%";
+  },800);
+
+  heart.onclick=()=>{
+    clearInterval(move);
+    heart.remove();
+    win();
+  };
+}
+
+// GAME 6: STORY
+function game6(){
+  document.getElementById("game").innerHTML=`
+    <h2>Pick our plan 💕</h2>
+    <button onclick="win()">🍕 Eat</button>
+    <button onclick="win()">🎬 Movie</button>
+    <button onclick="win()">🚶 Walk</button>
+  `;
+}
+
+// WIN
+function win(msg="You win 💖"){
+  document.querySelectorAll("div").forEach(d=>{
+    if(d.innerText==="💖") d.remove();
+  });
+
+  document.getElementById("game").innerHTML=`
+    <h1>💖</h1>
+    <h2>${msg}</h2>
+    <h2>I love you so much ANSHU 🥹❤️</h2>
+  `;
+}
+
+</script>
+
+</body>
+</html>
